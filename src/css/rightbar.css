@@ -1,0 +1,10 @@
+.right-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 5vh;
+    margin: auto 0;
+    backdrop-filter: blur(50px);
+    padding: 3rem;
+    height: 80vh;
+}
