@@ -1,7 +1,8 @@
  .answer-qotd input, .answer-qotd textarea {
     margin-top: 10px;
     width: 100% !important;
-    height: 40vh;
+    max-height: 30vh;
+    height: 30vh;
     font-size: 1.3vw;
     background: transparent;
     border-radius: 1rem;
@@ -14,4 +15,15 @@
 .answer-qotd input:focus, .answer-qotd textarea:focus {
     outline: none;
     box-shadow: 0 0 20px 1px #829099;
+}
+
+.answer-qotd-btn {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.answer-qotd-btn:hover {
+    box-shadow: 0 0 20px 1px #829099;
+    border-radius: .3rem;
 }

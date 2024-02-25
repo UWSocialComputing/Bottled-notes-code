@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import QuestionOfTheDay from './rightbar-tabs/qotd.js';
 import SubmitAnswer from './rightbar-tabs/submit-answer.js';
@@ -8,15 +8,17 @@ import TodaysNote from './rightbar-tabs/todays-note.js';
 import './css/rightbar.css';
 
 const RightPanel = (props) => {
+    const [toExtras, setToExtras] = useState('answerQuestion');
+
     return (
         <>
             <div className="right-panel-container">
                 {
                     props.writingNote &&
-                    <Tabs defaultActiveKey="answerQuestion" variant="pills">
+                    <Tabs defaultActiveKey="answerQuestion" variant="pills" activeKey={toExtras} onSelect={(k) => setToExtras(k)}>
                         <Tab eventKey="answerQuestion" title="Answer the question of the day">
                             <div className="active-panel">
-                                <QuestionOfTheDay />
+                                <QuestionOfTheDay setToExtras={setToExtras}/>
                             </div>
                         </Tab>
                         <Tab eventKey="addExtras" title="Add finishing touches">

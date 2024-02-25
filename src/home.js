@@ -15,7 +15,6 @@ const Home = () => {
         <div className="home-page">
             {(writingNote || viewingNote) && <ArrowLeftCircleFill
                 className="back-btn"
-                color="black"
                 onClick={() => setWritingNote(false) || setViewingNote(false)}
             />}
             {!viewingNote && <WriteButton

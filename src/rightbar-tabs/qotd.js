@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRightSquareFill } from 'react-bootstrap-icons';
 import '../css/qotd.css';
 
 const QuestionOfTheDay = (props) => {
@@ -14,6 +15,10 @@ const QuestionOfTheDay = (props) => {
                     minLength="20"
                 />
             </form>
+            <ArrowRightSquareFill
+                className="answer-qotd-btn"
+                onClick={() => props.setToExtras('addExtras')}
+            />
         </div>
     );
 }
