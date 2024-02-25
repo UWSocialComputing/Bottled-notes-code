@@ -1,11 +1,38 @@
-.right-panel {
+.right-panel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 3vw;
-    margin: auto 0;
-    backdrop-filter: blur(50px);
+    width: 35vw;
+    height: 80%;
     padding: 3rem;
-    height: 80vh;
+}
+
+.active-panel, .inactive-panel {
+    backdrop-filter: blur(50px);
     border-radius: 2rem;
+    border: 1px solid black;
+}
+
+.inactive-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    max-height: 5%;
+    margin-top: 10px;
+}
+
+.active-panel {
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.right-panel-header {
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: left;
 }

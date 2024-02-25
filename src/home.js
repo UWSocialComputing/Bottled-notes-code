@@ -26,7 +26,10 @@ const Home = () => {
                 onClick={() => setViewingNote(!viewingNote)}
                 viewingNote={viewingNote}
             />}
-            {(writingNote || viewingNote) && <RightPanel />}
+            {(writingNote || viewingNote) && <RightPanel
+                writingNote={writingNote}
+                viewingNote={viewingNote}
+            />}
             <SplineIsland />
         </div>
     );
