@@ -1,38 +1,41 @@
 .right-panel-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 3vw;
     width: 35vw;
-    height: 80%;
     padding: 3rem;
 }
 
-.active-panel, .inactive-panel {
+.active-panel {
     backdrop-filter: blur(50px);
     border-radius: 2rem;
     border: 1px solid black;
-}
-
-.inactive-panel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    max-height: 5%;
-    margin-top: 10px;
-}
-
-.active-panel {
-    flex-grow: 1;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .right-panel-header {
     font-size: 1.5vw;
     font-weight: bold;
     text-align: left;
+}
+
+.nav {
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.nav-link {
+    color: black !important;
+    border: 1px solid black;
+    border-radius: 2rem;
+    margin: 0.5rem;
+}
+
+.nav-link.active {
+    background-color: black !important;
+    color: white !important;
+    box-shadow: 0 0 50px 5px gray;
 }

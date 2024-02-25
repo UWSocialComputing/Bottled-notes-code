@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/submit-answer.css';
+import '../css/submit-answer.css';
 
 const SubmitAnswer = (props) => {
     return (

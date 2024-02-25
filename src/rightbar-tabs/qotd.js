@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/qotd.css';
+import '../css/qotd.css';
 
 const QuestionOfTheDay = (props) => {
     return (
