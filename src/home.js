@@ -3,7 +3,7 @@ import SplineIsland from './spline.js';
 import ViewButton from './view-button.js';
 import WriteButton from './write-button.js';
 import RightPanel from './right-panel.js';
-import { ArrowLeftCircleFill } from 'react-bootstrap-icons';
+import { ArrowLeftCircleFill, ChatHeartFill } from 'react-bootstrap-icons';
 import './css/home.css';
 
 
@@ -29,6 +29,10 @@ const Home = () => {
                 writingNote={writingNote}
                 viewingNote={viewingNote}
             />}
+            <div className="logo">
+                bottled notes 
+                <ChatHeartFill className="logo-icon"/>
+            </div>
             <SplineIsland />
         </div>
     );

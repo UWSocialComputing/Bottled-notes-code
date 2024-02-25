@@ -1,7 +1,11 @@
 .view-notes-btn {
     position: absolute;
     top: 70vh;
-    bottom: 0;
     right: 40vw;
     margin: auto 0;
+    height: auto;
+}
+
+.view-notes-btn button {
+    font-size: 20px !important;
 }
