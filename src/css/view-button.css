@@ -1,0 +1,13 @@
+.view-notes-btn {
+    position: absolute;
+    top: 70vh;
+    bottom: 0;
+    right: 40vw;
+    margin: auto 0;
+}
+
+.active-btn {
+    background-color: black !important;
+    color: white !important;
+    box-shadow: 0 0 50px 5px gray;
+}

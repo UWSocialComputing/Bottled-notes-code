@@ -1,0 +1,13 @@
+.write-notes-btn {
+    position: absolute;
+    top: 30vh;
+    bottom: 0;
+    left: 20vw;
+    margin: auto 0;
+}
+
+.active-btn {
+    background-color: black !important;
+    color: white !important;
+    box-shadow: 0 0 50px 5px gray;
+}
