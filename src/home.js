@@ -11,6 +11,8 @@ const Home = () => {
     const [writingNote, setWritingNote] = useState(false);
     const [viewingNote, setViewingNote] = useState(false);
 
+    const qotd = "if you had to build a roof out of any vegetable, what would you build it out of and why?";
+
     return (
         <div className="home-page">
             {(writingNote || viewingNote) && <ArrowLeftCircleFill
@@ -28,10 +30,11 @@ const Home = () => {
             {(writingNote || viewingNote) && <RightPanel
                 writingNote={writingNote}
                 viewingNote={viewingNote}
+                qotd={qotd}
             />}
             <div className="logo">
-                bottled notes 
-                <ChatHeartFill className="logo-icon"/>
+                bottled notes
+                <ChatHeartFill className="logo-icon" />
             </div>
             <SplineIsland />
         </div>
