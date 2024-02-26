@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs, Modal, Button } from 'react-bootstrap';
 import QuestionOfTheDay from './rightbar-tabs/qotd.js';
 import SubmitAnswer from './rightbar-tabs/submit-answer.js';
 import PastNotes from './rightbar-tabs/past-notes.js';
@@ -9,6 +9,23 @@ import './css/rightbar.css';
 
 const RightPanel = (props) => {
     const [toExtras, setToExtras] = useState('answerQuestion');
+    const [answer, setAnswer] = useState('');
+    const [isPrivate, setIsPrivate] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleTogglePrivate = () => setIsPrivate(!isPrivate);
+
+    const handleFinishingTouches = () => {
+        console.log('Submitted answer:', answer);
+        console.log({ isPrivate });
+        setShowModal(true);
+        // Here you can call a function to submit the text to your backend
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        props.setWritingNote(false);
+    }
 
     return (
         <>
@@ -21,12 +38,19 @@ const RightPanel = (props) => {
                                 <QuestionOfTheDay
                                     setToExtras={setToExtras}
                                     qotd={props.qotd}
+                                    onAnswerChange={setAnswer}
                                 />
                             </div>
                         </Tab>
                         <Tab eventKey="addExtras" title="prepare your bottle">
                             <div className="active-panel">
-                                <SubmitAnswer />
+                                <SubmitAnswer
+                                    answer={answer}
+                                    setAnswer={setAnswer}
+                                    handleFinishingTouches={handleFinishingTouches}
+                                    isPrivate={isPrivate}
+                                    handleTogglePrivate={handleTogglePrivate}
+                                />
                             </div>
                         </Tab>
                     </Tabs>
@@ -36,8 +60,8 @@ const RightPanel = (props) => {
                     <Tabs defaultActiveKey="todaysNote" variant="pills">
                         <Tab eventKey="todaysNote" title="today's note">
                             <div className="active-panel">
-                                <TodaysNote 
-                                qotd={props.qotd}
+                                <TodaysNote
+                                    qotd={props.qotd}
                                 />
                             </div>
                         </Tab>
@@ -54,6 +78,19 @@ const RightPanel = (props) => {
                     </Tabs>
                 }
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>You've dropped your bottle into the sea.</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Your answer will go to a stranger on the internet. You'll be able to see your match's answer too! Check back in a while to see if you've received a note from someone.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

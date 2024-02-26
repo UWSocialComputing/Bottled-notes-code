@@ -14,17 +14,19 @@ const Home = () => {
 
     useEffect(() => {
         const fetchQotd = async () => {
-            const startDate = new Date('2024-02-26');
-            const today = new Date();
-            const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-            const diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
+            if (qotd === "") {
+                const startDate = new Date('2024-02-26');
+                const today = new Date();
+                const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                const diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
     
-            const response = await getQotd(diffDays);
-            setQotd(response);
+                const response = await getQotd(diffDays);
+                setQotd(response);
+            }
         };
     
         fetchQotd();
-    }, []);
+    }, [qotd]);
 
     return (
         <>
@@ -44,6 +46,7 @@ const Home = () => {
                 {(writingNote || viewingNote) && <RightPanel
                     writingNote={writingNote}
                     viewingNote={viewingNote}
+                    setWritingNote={setWritingNote}
                     qotd={qotd}
                 />}
                 <div className="logo">
