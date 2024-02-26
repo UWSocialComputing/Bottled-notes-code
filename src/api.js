@@ -1,5 +1,5 @@
 import { db, auth } from './firebase';
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const signUpUser = async (email, password) => {
@@ -60,9 +60,20 @@ const signInUser = async (userCredentials) => {
 //     }
 // };
 
-const getQotd = async () => {
+const getQotd = async (questionId) => {
     const qotdCollection = collection(db, "qotd");
-    return "Test question :D";
+    const q = query(qotdCollection, where("id", "==", questionId));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        console.log("Question:", doc.data().question);
+        return doc.data().question;
+    } else {
+        console.log("No such document!");
+        return null;
+    }
 }
 
 // const addNote = async (userId) => {
