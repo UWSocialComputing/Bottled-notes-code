@@ -1,19 +1,64 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+exports.resetAnsweredToday = functions.pubsub
+    .schedule("0 0 * * *").timeZone("America/Los_Angeles")
+    .onRun(async (context) => {
+      const usersRef = admin.firestore().collection("users");
+      const snapshot = await usersRef.get();
+      const batch = admin.firestore().batch();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+      snapshot.docs.forEach((doc) => {
+        const userRef = usersRef.doc(doc.id);
+        const updates = {
+          answeredToday: false,
+          todaysMatchId: null,
+          todaysAnswer: null,
+          todaysRandom: Math.floor(Math.random() * 1000) + 1,
+          alreadyMatched: false,
+        };
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+        batch.update(userRef, updates);
+      });
+
+      await batch.commit();
+      console.log("Reset 'answeredToday' and 'todaysMatchId' for all users");
+      return null;
+    });
+
+exports.pairUsers = functions.pubsub
+    .schedule("0 */4 * * *").timeZone("America/Los_Angeles")
+    .onRun(async (context) => {
+      const usersRef = admin.firestore().collection("users");
+      const snapshot = await usersRef.get();
+      const batch = admin.firestore().batch();
+
+      // Filter and sort users
+      const users = snapshot.docs
+          .filter((doc) =>
+            doc.data().answeredToday === true &&
+            doc.data().alreadyMatched === false,
+          )
+          .sort((a, b) => a.data().todaysRandom - b.data().todaysRandom);
+
+      console.log(`Found ${users.length} users to pair up`);
+
+      // Pair up users
+      for (let i = 0; i < users.length - 1; i += 2) {
+        const user1 = users[i];
+        const user2 = users[i + 1];
+
+        console.log(`Pairing up user ${user1.id} with user ${user2.id}`);
+
+        // Update user fields
+        batch.update(usersRef
+            .doc(user1.id), {todaysMatchId: user2.id, alreadyMatched: true});
+        batch.update(usersRef
+            .doc(user2.id), {todaysMatchId: user1.id, alreadyMatched: true});
+      }
+
+      await batch.commit();
+      console.log("Paired up users");
+      return null;
+    });

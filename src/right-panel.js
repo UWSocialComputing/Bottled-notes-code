@@ -1,4 +1,4 @@
-import { React, useContext, useState } from 'react';
+import { useState } from 'react';
 import { Tab, Tabs, Modal, Button } from 'react-bootstrap';
 import { addNote } from './api.js';
 import QuestionOfTheDay from './rightbar-tabs/qotd.js';
@@ -62,6 +62,7 @@ const RightPanel = (props) => {
                                 <TodaysNote
                                     qotd={props.qotd}
                                     userId={props.userId}
+                                    matchId={props.matchId}
                                 />
                             </div>
                         </Tab>

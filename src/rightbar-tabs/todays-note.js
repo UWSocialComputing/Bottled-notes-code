@@ -1,9 +1,11 @@
-import { React, useState, useEffect } from "react";
-import { getAnswer } from "../api.js";
+import { useState, useEffect } from "react";
+import { getAnswer, getMatchId } from "../api.js";
 import "../css/todays-note.css";
 
 const TodaysNote = (props) => {
     const [myAnswer, setMyAnswer] = useState("");
+    const [matchAnswer, setMatchAnswer] = useState("");
+
     const date = new Date();
     const day = date.getDate();
     const month = date.getMonth() + 1; // January is 0!
@@ -13,12 +15,14 @@ const TodaysNote = (props) => {
 
     useEffect(() => {
         const fetchAnswer = async () => {
+            const matchId = await getMatchId(props.userId);
             const response = await getAnswer(props.userId);
+            const matchResponse = await getAnswer(matchId);
             setMyAnswer(response);
+            setMatchAnswer(matchResponse);
         };
-
+    
         fetchAnswer();
-        console.log(myAnswer);
     }, [props.userId]);
 
 
@@ -31,7 +35,15 @@ const TodaysNote = (props) => {
                 </span>
             </h2>
             <p className="todays-note">
-                {myAnswer === null ? "You haven't answered today's question!" : myAnswer}
+                Your answer: {myAnswer === null ? "You haven't answered today's question!" : myAnswer}
+            </p>
+            {matchAnswer !== null ? (
+                <p className="todays-note">
+                    Your match's answer: {matchAnswer}
+                </p>
+            ) : null}
+            <p className="todays-note">
+
             </p>
         </div>
     );

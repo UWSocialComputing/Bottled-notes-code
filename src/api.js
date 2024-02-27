@@ -77,18 +77,32 @@ const getQotd = async (questionId) => {
 
 const addNote = async (userId, answer, isPrivate) => {
     const userDoc = doc(db, "users", userId);
-    await setDoc(userDoc, { answeredToday: true, isPrivate: isPrivate, todaysanswer: answer }, { merge: true });
+    await setDoc(userDoc, { answeredToday: true, isPrivate: isPrivate, todaysAnswer: answer }, { merge: true });
 }
 
 const getAnswer = async (userId) => {
     const userDoc = doc(db, "users", userId);
     const userDocSnap = await getDoc(userDoc);
     if (userDocSnap.exists()) {
-        return userDocSnap.data().todaysanswer;
+        return userDocSnap.data().todaysAnswer;
     } else {
         console.log("No such document!");
         return null;
     }
+}
+
+const getMatchId = async (userId) => {
+    const userDoc = doc(db, "users", userId);
+    const userDocSnap = await getDoc(userDoc);
+    if (userDocSnap.exists()) {
+        const user = userDocSnap.data();
+        if (user.alreadyMatched) {
+            return user.todaysMatchId;
+        }
+    } else {
+        console.log("No such document!");
+    }
+    return null;
 }
 
 export {
@@ -96,5 +110,6 @@ export {
     signUpUser,
     signInUser,
     addNote,
-    getAnswer
+    getAnswer,
+    getMatchId
 };
