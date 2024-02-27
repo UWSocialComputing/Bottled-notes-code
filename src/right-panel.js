@@ -1,6 +1,5 @@
 import { React, useContext, useState } from 'react';
 import { Tab, Tabs, Modal, Button } from 'react-bootstrap';
-import { UserContext } from './usercontext';
 import { addNote } from './api.js';
 import QuestionOfTheDay from './rightbar-tabs/qotd.js';
 import SubmitAnswer from './rightbar-tabs/submit-answer.js';
@@ -14,13 +13,12 @@ const RightPanel = (props) => {
     const [answer, setAnswer] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const { userId } = useContext(UserContext);
 
     const handleTogglePrivate = () => setIsPrivate(!isPrivate);
 
     const handleFinishingTouches = () => {
         setShowModal(true);
-        addNote(userId, answer, isPrivate);
+        addNote(props.userId, answer, isPrivate);
     };
 
     const handleCloseModal = () => {
@@ -63,6 +61,7 @@ const RightPanel = (props) => {
                             <div className="active-panel">
                                 <TodaysNote
                                     qotd={props.qotd}
+                                    userId={props.userId}
                                 />
                             </div>
                         </Tab>

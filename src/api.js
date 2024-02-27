@@ -1,5 +1,5 @@
 import { db, auth } from './firebase';
-import { collection, getDocs, query, where, setDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query, where, setDoc, doc, getDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const signUpUser = async (email, password) => {
@@ -80,9 +80,21 @@ const addNote = async (userId, answer, isPrivate) => {
     await setDoc(userDoc, { answeredToday: true, isPrivate: isPrivate, todaysanswer: answer }, { merge: true });
 }
 
+const getAnswer = async (userId) => {
+    const userDoc = doc(db, "users", userId);
+    const userDocSnap = await getDoc(userDoc);
+    if (userDocSnap.exists()) {
+        return userDocSnap.data().todaysanswer;
+    } else {
+        console.log("No such document!");
+        return null;
+    }
+}
+
 export {
     getQotd,
     signUpUser,
     signInUser,
-    addNote
+    addNote,
+    getAnswer
 };

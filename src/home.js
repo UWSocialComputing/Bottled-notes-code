@@ -28,6 +28,7 @@ const Home = (props) => {
         };
 
         fetchQotd();
+        console.log(userId);
     }, [qotd]);
 
     return (
@@ -50,6 +51,7 @@ const Home = (props) => {
                     viewingNote={viewingNote}
                     setWritingNote={setWritingNote}
                     qotd={qotd}
+                    userId={userId}
                 />}
                 <div className="logo">
                     bottled notes
