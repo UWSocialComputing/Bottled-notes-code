@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { React, useContext, useState } from 'react';
 import { Tab, Tabs, Modal, Button } from 'react-bootstrap';
+import { UserContext } from './usercontext';
+import { addNote } from './api.js';
 import QuestionOfTheDay from './rightbar-tabs/qotd.js';
 import SubmitAnswer from './rightbar-tabs/submit-answer.js';
 import PastNotes from './rightbar-tabs/past-notes.js';
@@ -12,14 +14,13 @@ const RightPanel = (props) => {
     const [answer, setAnswer] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const { userId } = useContext(UserContext);
 
     const handleTogglePrivate = () => setIsPrivate(!isPrivate);
 
     const handleFinishingTouches = () => {
-        console.log('Submitted answer:', answer);
-        console.log({ isPrivate });
         setShowModal(true);
-        // Here you can call a function to submit the text to your backend
+        addNote(userId, answer, isPrivate);
     };
 
     const handleCloseModal = () => {
@@ -83,7 +84,8 @@ const RightPanel = (props) => {
                     <Modal.Title>You've dropped your bottle into the sea.</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Your answer will go to a stranger on the internet. You'll be able to see your match's answer too! Check back in a while to see if you've received a note from someone.
+                    {isPrivate && <p>Your note is private.</p>}
+                    {!isPrivate && <p>Your answer will go to a stranger on the internet. You'll be able to see your match's answer too! Check back in a while to see if you've received a note from someone.</p>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-dark" onClick={handleCloseModal}>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, ToggleButton, ToggleButtonGroup, Row, Col } from 'react-bootstrap';
 import '../css/submit-answer.css';
 
