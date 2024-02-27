@@ -5,9 +5,14 @@ import About from './about.js';
 import Home from './home.js';
 import SignIn from './signin.js';
 import SignUp from './signup.js';
+import { UserProvider } from './usercontext';
+import { useState } from 'react';
 
 function App() {
+  const [userId, setUserId] = useState(null);
+
   return (
+    <UserProvider value={{ userId, setUserId }}>
     <div className="App">
       <main>
         <Router>
@@ -20,6 +25,7 @@ function App() {
         </Router>
       </main>
     </div>
+    </UserProvider>
   );
 }
 

@@ -23,7 +23,7 @@ const signInUser = async (userCredentials) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         // Signed in
         console.log('user signed in');
-        return ({ error: undefined });
+        return ({ userId: userCredential.user.uid, error: undefined });
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -84,5 +84,6 @@ const getQotd = async (questionId) => {
 export {
     getQotd,
     signUpUser,
-    signInUser
+    signInUser,
+    // addNote
 };

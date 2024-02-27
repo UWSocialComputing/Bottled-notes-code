@@ -1,14 +1,15 @@
-import React from "react";
+import { React, useContext, useState } from "react";
 import "./css/signin.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { signInUser } from "./api";
 import SignInSpline from "./spline2.js";
+import { UserContext } from './usercontext';
 
 const SignIn = (props) => {
     const navigate = useNavigate()
     const [userInfo, setUserInfo] = useState(["", ""]);
+    const { setUserId } = useContext(UserContext);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -22,6 +23,7 @@ const SignIn = (props) => {
         if (result.error !== undefined) {
             console.log(result.error);
         } else {
+            setUserId(result.userId);
             navigate('/home');
         }
     }
@@ -59,7 +61,7 @@ const SignIn = (props) => {
                                             required
                                             type="text"
                                             placeholder="password"
-                                            autocomplete="off"
+                                            autoComplete="off"
                                             value={userInfo[1]}
                                             onChange={(e) => {
                                                 const updatedInfo = [...userInfo]
