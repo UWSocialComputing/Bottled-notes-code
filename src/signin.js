@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import "./css/signin.css";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { signInUser } from "./api";
 import SignInSpline from "./spline2.js";
 import { UserContext } from './usercontext';
+import "./css/signin.css";
 
 const SignIn = (props) => {
     const navigate = useNavigate()
@@ -38,7 +38,7 @@ const SignIn = (props) => {
                             <Card.Title>
                                 Enter your username and password to access your island.
                             </Card.Title>
-                            <Card.Text>
+                            <div>
                                 <Form
                                     onSubmit={(e) => handleFormSubmit(e, navigate)}
                                 >
@@ -73,7 +73,7 @@ const SignIn = (props) => {
                                         Enter your island
                                     </Button>
                                 </Form>
-                            </Card.Text>
+                            </div>
                         </Card.Body>
                     </Card>
                 </div>

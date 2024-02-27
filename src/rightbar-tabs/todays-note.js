@@ -17,11 +17,14 @@ const TodaysNote = (props) => {
         const fetchAnswer = async () => {
             const matchId = await getMatchId(props.userId);
             const response = await getAnswer(props.userId);
-            const matchResponse = await getAnswer(matchId);
+            let matchResponse = null;
+            if (matchId) {
+                matchResponse = await getAnswer(matchId);
+            }
             setMyAnswer(response);
             setMatchAnswer(matchResponse);
         };
-    
+
         fetchAnswer();
     }, [props.userId]);
 
@@ -37,11 +40,11 @@ const TodaysNote = (props) => {
             <p className="todays-note">
                 Your answer: {myAnswer === null ? "You haven't answered today's question!" : myAnswer}
             </p>
-            {matchAnswer !== null ? (
-                <p className="todays-note">
-                    Your match's answer: {matchAnswer}
-                </p>
-            ) : null}
+
+            <p className="todays-note">
+                {matchAnswer === null ? "Come back later to see a stranger's answer to the question!" : `A stranger said: ${matchAnswer}`}
+            </p>
+
             <p className="todays-note">
 
             </p>
