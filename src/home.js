@@ -13,6 +13,15 @@ const Home = (props) => {
     const [writingNote, setWritingNote] = useState(false);
     const [viewingNote, setViewingNote] = useState(false);
     const [qotd, setQotd] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer); // This will clear the timer when the component unmounts
+    }, []);
 
     useEffect(() => {
         const fetchQotd = async () => {
@@ -58,12 +67,14 @@ const Home = (props) => {
                     <ChatHeartFill className="logo-icon" />
                 </div>
                 <SplineIsland className="spline-center" />
-                <div style={{
-                    height: '100vh',
-                    fontSize: '80px'
-                }}>
-                    Loading...
-                </div>
+                {isLoading && (
+                    <div style={{
+                        height: '100vh',
+                        fontSize: '80px'
+                    }}>
+                        Loading...
+                    </div>
+                )}
 
 
                 {/* temporary button to upload qotd */}
