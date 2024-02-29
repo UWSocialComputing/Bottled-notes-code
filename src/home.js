@@ -36,7 +36,7 @@ const Home = (props) => {
         };
 
         fetchQotd();
-        // console.log(userId);
+        console.log(userId);
     }, [qotd]);
 
     return (

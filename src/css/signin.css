@@ -3,3 +3,15 @@
     padding: 10vw;
     margin: auto;
 }
+
+.logo-sign {
+    font-size: 2vw;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.logo-icon {
+    font-size: 2vw;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
