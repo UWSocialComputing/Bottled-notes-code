@@ -58,6 +58,12 @@ const Home = (props) => {
                     <ChatHeartFill className="logo-icon" />
                 </div>
                 <SplineIsland className="spline-center" />
+                <div style={{
+                    height: '100vh',
+                    fontSize: '80px'
+                }}>
+                    Loading...
+                </div>
 
 
                 {/* temporary button to upload qotd */}

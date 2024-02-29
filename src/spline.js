@@ -1,9 +1,23 @@
-import Spline from '@splinetool/react-spline';
+import React, { Suspense } from 'react';
 
-const SplineIsland = (props) => {
+const Spline = React.lazy(() => import('@splinetool/react-spline'));
+
+function App() {
   return (
-    <Spline scene="https://prod.spline.design/aRvGUekUwxjKzIor/scene.splinecode" />
+    <div>
+      <Suspense fallback={<div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '80px'
+      }}>
+        Loading...
+      </div>}>
+        <Spline scene="https://prod.spline.design/aRvGUekUwxjKzIor/scene.splinecode" />
+      </Suspense>
+    </div>
   );
 }
 
-export default SplineIsland;
+export default App;
