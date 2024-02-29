@@ -14,6 +14,13 @@
 .view-notes-btn .list-group-item.active {
     background-color: black;
     color: white;
+    box-shadow: 0 0 20px 1px #829099;
+    border-radius: .3rem;
+}
+
+.view-notes-btn button:hover {
+    box-shadow: 0 0 20px 1px #829099;
+    border-radius: .3rem;
 }
 
 .view-notes-btn button {

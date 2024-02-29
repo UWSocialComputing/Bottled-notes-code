@@ -17,12 +17,6 @@
     box-shadow: 0 0 20px 1px #829099;
 }
 
-.answer-qotd-btn {
-    width: 3rem;
-    height: 3rem;
-    cursor: pointer;
-}
-
 .answer-qotd-btn:hover {
     box-shadow: 0 0 20px 1px #829099;
     border-radius: .3rem;

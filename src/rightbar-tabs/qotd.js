@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRightSquareFill } from 'react-bootstrap-icons';
+import { Button } from 'react-bootstrap';
 import '../css/qotd.css';
 
 const QuestionOfTheDay = (props) => {
@@ -33,12 +33,15 @@ const QuestionOfTheDay = (props) => {
                     onChange={handleAnswerChange}
                 />
             </form>
-            <ArrowRightSquareFill
+            <Button
+                variant="outline-dark"
                 className="answer-qotd-btn"
                 onClick={() => props.setToExtras('addExtras')}
-            />
+            >
+                prepare your bottle
+            </Button>
         </div>
-        
+
     );
 }
 
