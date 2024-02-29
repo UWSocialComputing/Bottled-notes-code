@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import SplineIsland from './spline.js';
-import ViewButton from './view-button.js';
-import WriteButton from './write-button.js';
+import ViewWriteButton from './view-button.js';
 import RightPanel from './right-panel.js';
 import { ArrowLeftCircleFill, ChatHeartFill } from 'react-bootstrap-icons';
 import { getQotd } from './api.js';
@@ -10,7 +9,7 @@ import './css/home.css';
 
 const Home = (props) => {
     const { userId } = useContext(UserContext);
-    const [writingNote, setWritingNote] = useState(false);
+    const [writingNote, setWritingNote] = useState(true);
     const [viewingNote, setViewingNote] = useState(false);
     const [qotd, setQotd] = useState("");
     const [isLoading, setIsLoading] = useState(true);
@@ -47,14 +46,18 @@ const Home = (props) => {
                     className="back-btn"
                     onClick={() => setWritingNote(false) || setViewingNote(false)}
                 />}
-                {!viewingNote && <WriteButton
-                    onClick={() => setWritingNote(!writingNote)}
-                    writingNote={writingNote}
-                />}
-                {!writingNote && <ViewButton
-                    onClick={() => setViewingNote(!viewingNote)}
+                <ViewWriteButton
+                    onViewClick={() => {
+                        setViewingNote(true);
+                        setWritingNote(false);
+                    }}
+                    onWriteClick={() => {
+                        setWritingNote(true);
+                        setViewingNote(false);
+                    }}
                     viewingNote={viewingNote}
-                />}
+                    writingNote={writingNote}
+                />
                 {(writingNote || viewingNote) && <RightPanel
                     writingNote={writingNote}
                     viewingNote={viewingNote}

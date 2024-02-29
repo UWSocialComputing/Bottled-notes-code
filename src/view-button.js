@@ -1,18 +1,19 @@
-import { Button } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
 import './css/view-button.css';
 
-const ViewButton = (props) => {
+const ViewWriteButton = (props) => {
     return (
         <div className="view-notes-btn">
-            <Button
-                variant="outline-dark"
-                onClick={props.onClick}
-                className={props.viewingNote ? 'active-btn' : ''}
-            >
-                {props.viewingNote ? "viewing your notes..." : "view notes"}
-            </Button>
+            <ListGroup>
+                <ListGroup.Item action onClick={props.onWriteClick} active={props.writingNote}>
+                    write a note
+                </ListGroup.Item>
+                <ListGroup.Item action onClick={props.onViewClick} active={props.viewingNote}>
+                    view notes
+                </ListGroup.Item>
+            </ListGroup>
         </div>
     );
 }
 
-export default ViewButton;
+export default ViewWriteButton;

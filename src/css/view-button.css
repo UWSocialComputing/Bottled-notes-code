@@ -1,11 +1,21 @@
 .view-notes-btn {
     position: absolute;
-    top: 70vh;
-    right: 40vw;
+    left: 10vh;
+    top: 30vh;
     margin: auto 0;
     height: auto;
 }
 
+.view-notes-btn .list-group-item {
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+.view-notes-btn .list-group-item.active {
+    background-color: black;
+    color: white;
+}
+
 .view-notes-btn button {
-    font-size: 20px !important;
+    font-size: 2vw !important;
 }
