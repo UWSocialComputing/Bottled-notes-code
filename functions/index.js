@@ -6,10 +6,12 @@ exports.resetAnsweredToday = functions.pubsub
     .schedule("0 0 * * *").timeZone("America/Los_Angeles")
     .onRun(async (context) => {
       const usersRef = admin.firestore().collection("users");
-      const snapshot = await usersRef.get();
+      const chatsRef = admin.firestore().collection("chats");
+      const usersSnapshot = await usersRef.get();
+      const chatsSnapshot = await chatsRef.get();
       const batch = admin.firestore().batch();
 
-      snapshot.docs.forEach((doc) => {
+      usersSnapshot.docs.forEach((doc) => {
         const userRef = usersRef.doc(doc.id);
         const updates = {
           answeredToday: false,
@@ -22,8 +24,13 @@ exports.resetAnsweredToday = functions.pubsub
         batch.update(userRef, updates);
       });
 
+      chatsSnapshot.docs.forEach((doc) => {
+        const chatRef = chatsRef.doc(doc.id);
+        batch.delete(chatRef);
+      });
+
       await batch.commit();
-      console.log("Reset 'answeredToday' and 'todaysMatchId' for all users");
+      console.log("Reset stuff for all users");
       return null;
     });
 
@@ -56,6 +63,13 @@ exports.pairUsers = functions.pubsub
             .doc(user1.id), {todaysMatchId: user2.id, alreadyMatched: true});
         batch.update(usersRef
             .doc(user2.id), {todaysMatchId: user1.id, alreadyMatched: true});
+
+        // Create chat documents
+        const chat1Ref = admin.firestore().collection("chats").doc(user1.id);
+        const chat2Ref = admin.firestore().collection("chats").doc(user2.id);
+
+        batch.set(chat1Ref, {messages: []});
+        batch.set(chat2Ref, {messages: []});
       }
 
       await batch.commit();
