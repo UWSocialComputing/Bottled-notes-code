@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { sendMessage } from './api.js';
+import { Button } from 'react-bootstrap';
 import { UserContext } from './usercontext';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase';
@@ -40,11 +41,15 @@ const Chat = ({ matchId }) => {
         <div className="chat-container">
             <h2 className="chat-header">Chat with the stranger</h2>
             <div className="message-container" ref={chatContainerRef}>
-                {messages.map((message, index) => (
-                    <p key={index} className={`message ${message.senderId === userId ? 'current-user' : 'other-user'}`}>
-                        {message.text}
-                    </p>
-                ))}
+                {messages.length === 0 ? (
+                    <p>Type a message below to send a message</p>
+                ) : (
+                    messages.map((message, index) => (
+                        <p key={index} className={`message ${message.senderId === userId ? 'current-user' : 'other-user'}`}>
+                            {message.text}
+                        </p>
+                    ))
+                )}
             </div>
             <div className="input-container">
                 <input
@@ -54,9 +59,13 @@ const Chat = ({ matchId }) => {
                     placeholder="Type a message"
                     className="input-field"
                 />
-                <button onClick={handleSend} className="send-button">Send</button>
+                <Button
+                    variant="outline-dark"
+                    onClick={handleSend}
+                    className="send-button">Send
+                </Button>
             </div>
-        </div>
+        </div >
     );
 };
 
