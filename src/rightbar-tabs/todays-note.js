@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { getAnswer, getMatchId } from "../api.js";
+import Chat from '../chat.js';
 import "../css/todays-note.css";
 
 const TodaysNote = (props) => {
     const [myAnswer, setMyAnswer] = useState("");
     const [matchAnswer, setMatchAnswer] = useState("");
+    const [matchId, setMatchId] = useState(null);
 
     const date = new Date();
     const day = date.getDate();
@@ -15,14 +17,15 @@ const TodaysNote = (props) => {
 
     useEffect(() => {
         const fetchAnswer = async () => {
-            const matchId = await getMatchId(props.userId);
+            const fetchedMatchId = await getMatchId(props.userId);
             const response = await getAnswer(props.userId);
             let matchResponse = null;
-            if (matchId) {
-                matchResponse = await getAnswer(matchId);
+            if (fetchedMatchId) {
+                matchResponse = await getAnswer(fetchedMatchId);
             }
             setMyAnswer(response);
             setMatchAnswer(matchResponse);
+            setMatchId(fetchedMatchId);
         };
 
         fetchAnswer();
@@ -44,10 +47,7 @@ const TodaysNote = (props) => {
             <p className="todays-note">
                 {matchAnswer === null ? "Come back later to see a stranger's answer to the question!" : `A stranger said: ${matchAnswer}`}
             </p>
-
-            <p className="todays-note">
-
-            </p>
+            {matchAnswer !== null && matchId && <Chat matchId={matchId} />}
         </div>
     );
 }

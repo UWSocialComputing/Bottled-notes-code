@@ -38,7 +38,7 @@ const QuestionOfTheDay = (props) => {
                 className="answer-qotd-btn"
                 onClick={() => props.setToExtras('addExtras')}
             >
-                prepare your bottle
+                continue
             </Button>
         </div>
 

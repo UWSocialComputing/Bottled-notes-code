@@ -1,5 +1,5 @@
 import { db, auth } from './firebase';
-import { collection, getDocs, query, where, setDoc, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, where, setDoc, doc, getDoc, arrayUnion, updateDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const signUpUser = async (email, password) => {
@@ -105,11 +105,43 @@ const getMatchId = async (userId) => {
     return null;
 }
 
+const getMessages = async (matchId) => {
+    if (!matchId) {
+        console.log("matchId is null or undefined 1!");
+        return [];
+    }
+
+    const docRef = doc(db, "chats", matchId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data().messages || [];
+    } else {
+        console.log("No such document!");
+        return [];
+    }
+};
+
+const sendMessage = async (matchId, message, senderId) => {
+    const userIds = [senderId, matchId];
+    for (const userId of userIds) {
+        const docRef = doc(db, "chats", userId);
+        await updateDoc(docRef, {
+            messages: arrayUnion({
+                text: message,
+                senderId: senderId
+            })
+        });
+    }
+};
+
 export {
     getQotd,
     signUpUser,
     signInUser,
     addNote,
     getAnswer,
-    getMatchId
+    getMatchId,
+    getMessages,
+    sendMessage
 };
