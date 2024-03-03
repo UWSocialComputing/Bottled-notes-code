@@ -21,3 +21,7 @@
     box-shadow: 0 0 20px 1px #829099;
     border-radius: .3rem;
 }
+
+.answer-qotd-btn {
+    margin-top: 1rem;
+}

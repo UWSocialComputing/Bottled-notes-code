@@ -33,11 +33,14 @@ const QuestionOfTheDay = (props) => {
                     onChange={handleAnswerChange}
                     disabled={props.alreadyAnswered}
                 />
+                <div style={{ textAlign: 'left' }}>Character count: {answer.length}</div>
+                <div style={{ textAlign: 'left' }}>Please write at least 40 characters.</div>
             </form>
             <Button
                 variant="outline-dark"
                 className="answer-qotd-btn"
                 onClick={() => props.setToExtras('addExtras')}
+                disabled={answer.length < 40}
             >
                 continue
             </Button>

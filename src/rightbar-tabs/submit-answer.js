@@ -37,7 +37,7 @@ const SubmitAnswer = (props) => {
                     <Button
                         variant="outline-dark"
                         onClick={props.handleFinishingTouches}
-                        disabled={props.alreadyAnswered}
+                        disabled={props.alreadyAnswered || props.answer.length < 40}
                     >
                         drop your bottle into the sea
                     </Button>
