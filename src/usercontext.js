@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 export const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
-    const [userId, setUserId] = useState(localStorage.getItem('userId') || null);
+    const [userId, setUserId] = useState(sessionStorage.getItem('userId') || null);
 
     useEffect(() => {
-        localStorage.setItem('userId', userId);
+        sessionStorage.setItem('userId', userId);
     }, [userId]);
 
     return (

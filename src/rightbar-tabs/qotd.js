@@ -29,8 +29,9 @@ const QuestionOfTheDay = (props) => {
                     type="text"
                     name="answer-to-qotd"
                     minLength="20"
-                    value={answer}
+                    value={props.alreadyAnswered ? "You've already answered the question of the day" : answer}
                     onChange={handleAnswerChange}
+                    disabled={props.alreadyAnswered}
                 />
             </form>
             <Button
