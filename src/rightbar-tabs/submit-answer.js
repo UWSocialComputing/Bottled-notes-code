@@ -9,7 +9,7 @@ const SubmitAnswer = (props) => {
             </div>
             <Row className="mt-3">
                 <Col>
-                    <p>Keep your note public or private to strangers.</p>
+                    <p>choose "private" if you want to keep your note private to strangers.</p>
                     <ToggleButtonGroup
                         type="radio"
                         name="options"

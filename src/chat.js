@@ -39,7 +39,7 @@ const Chat = ({ matchId }) => {
 
     return (
         <div className="chat-container">
-            <h2 className="chat-header">Chat with the stranger</h2>
+            <h2 className="todays-note-header">Chat with the stranger</h2>
             <div className="message-container" ref={chatContainerRef}>
                 {messages.length === 0 ? (
                     <p>Type a message below to send a message</p>
