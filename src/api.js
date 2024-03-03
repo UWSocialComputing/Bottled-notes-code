@@ -84,7 +84,10 @@ const getAnswer = async (userId) => {
     const userDoc = doc(db, "users", userId);
     const userDocSnap = await getDoc(userDoc);
     if (userDocSnap.exists()) {
-        return userDocSnap.data().todaysAnswer;
+        return {
+            todaysAnswer: userDocSnap.data().todaysAnswer,
+            isPrivate: userDocSnap.data().isPrivate,
+        };
     } else {
         console.log("No such document!");
         return null;

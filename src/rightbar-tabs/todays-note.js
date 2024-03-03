@@ -7,6 +7,7 @@ const TodaysNote = (props) => {
     const [myAnswer, setMyAnswer] = useState("");
     const [matchAnswer, setMatchAnswer] = useState("");
     const [matchId, setMatchId] = useState(null);
+    const [isPrivate, setIsPrivate] = useState(false);
 
     const date = new Date();
     const day = date.getDate();
@@ -23,8 +24,11 @@ const TodaysNote = (props) => {
             if (fetchedMatchId) {
                 matchResponse = await getAnswer(fetchedMatchId);
             }
-            setMyAnswer(response);
-            setMatchAnswer(matchResponse);
+            setMyAnswer(response.todaysAnswer);
+            setIsPrivate(response.isPrivate);
+            if (matchResponse) {
+                setMatchAnswer(matchResponse.todaysAnswer);
+            }
             setMatchId(fetchedMatchId);
         };
 
@@ -44,9 +48,11 @@ const TodaysNote = (props) => {
                 Your answer: {myAnswer === null ? "You haven't answered today's question!" : myAnswer}
             </p>
 
-            <p className="todays-note">
-                {matchAnswer === null ? "Come back later to see a stranger's answer to the question!" : `A stranger said: ${matchAnswer}`}
-            </p>
+            {!isPrivate && (
+                <p className="todays-note">
+                    {matchAnswer === null ? "Come back later to see a stranger's answer to the question!" : `A stranger said: ${matchAnswer}`}
+                </p>
+            )}
             {matchAnswer !== null && matchId && <Chat matchId={matchId} />}
         </div>
     );

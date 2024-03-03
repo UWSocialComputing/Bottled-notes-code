@@ -45,7 +45,8 @@ exports.pairUsers = functions.pubsub
       const users = snapshot.docs
           .filter((doc) =>
             doc.data().answeredToday === true &&
-            doc.data().alreadyMatched === false,
+            doc.data().alreadyMatched === false &&
+            doc.data().isPrivate !== true,
           )
           .sort((a, b) => a.data().todaysRandom - b.data().todaysRandom);
 
