@@ -93,9 +93,11 @@ const RightPanel = (props) => {
                                 />
                             </div>
                         </Tab>
-                        <Tab eventKey="pastNotes" title="past notes">
+                        <Tab eventKey="pastNotes" title="past questions">
                             <div className="active-panel">
-                                <PastNotes />
+                                <PastNotes
+                                    pastNotes={props.pastNotes}
+                                />
                             </div>
                         </Tab>
                         {/* <Tab eventKey="stickerbook" title="stickerbook">

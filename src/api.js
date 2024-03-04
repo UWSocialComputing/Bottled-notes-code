@@ -138,6 +138,20 @@ const sendMessage = async (matchId, message, senderId) => {
     }
 };
 
+const fetchPastNotes = async (questionId) => {
+    if (questionId === undefined) {
+        throw new Error("questionId is undefined!")
+    }
+
+    const qotdCollection = collection(db, "qotd");
+    const q = query(qotdCollection, where("id", "<=", questionId));
+
+    const querySnapshot = await getDocs(q);
+    const notes = querySnapshot.docs.map(doc => doc.data());
+    notes.sort((a, b) => a.id - b.id); // Sort by id
+    return notes;
+};
+
 export {
     getQotd,
     signUpUser,
@@ -146,5 +160,6 @@ export {
     getAnswer,
     getMatchId,
     getMessages,
-    sendMessage
+    sendMessage,
+    fetchPastNotes
 };

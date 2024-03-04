@@ -1,0 +1,19 @@
+.past-notes-box {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    text-align: left;
+}
+
+.past-notes {
+    display: flex;
+    overflow-y: auto;
+    max-height: 50vh;
+    flex-direction: column-reverse;
+}

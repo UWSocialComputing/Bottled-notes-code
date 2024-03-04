@@ -3,7 +3,7 @@ import SplineIsland from './spline.js';
 import ViewWriteButton from './view-button.js';
 import RightPanel from './right-panel.js';
 import { ArrowLeftCircleFill, ChatHeartFill } from 'react-bootstrap-icons';
-import { getQotd } from './api.js';
+import { getQotd, fetchPastNotes } from './api.js';
 import { UserContext } from './usercontext';
 import './css/home.css';
 
@@ -13,6 +13,13 @@ const Home = (props) => {
     const [viewingNote, setViewingNote] = useState(false);
     const [qotd, setQotd] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [pastNotes, setPastNotes] = useState([]);
+
+    const startDate = new Date('2024-02-26');
+    const today = new Date();
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
+
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -25,11 +32,6 @@ const Home = (props) => {
     useEffect(() => {
         const fetchQotd = async () => {
             if (qotd === "") {
-                const startDate = new Date('2024-02-26');
-                const today = new Date();
-                const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-                const diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
-
                 const response = await getQotd(diffDays);
                 setQotd(response);
             }
@@ -37,7 +39,16 @@ const Home = (props) => {
 
         fetchQotd();
         console.log(userId);
-    }, [qotd]);
+    }, [qotd, userId, diffDays]);
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            const notes = await fetchPastNotes(diffDays);
+            setPastNotes(notes);
+        };
+
+        fetchNotes();
+    }, [diffDays]);
 
     return (
         <>
@@ -64,6 +75,7 @@ const Home = (props) => {
                     setWritingNote={setWritingNote}
                     qotd={qotd}
                     userId={userId}
+                    pastNotes={pastNotes}
                 />}
                 <div className="logo">
                     bottled notes
