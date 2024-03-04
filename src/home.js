@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import SplineIsland from './spline.js';
 import ViewWriteButton from './view-button.js';
 import RightPanel from './right-panel.js';
-import { ArrowLeftCircleFill, ChatHeartFill } from 'react-bootstrap-icons';
+import { ArrowLeftCircleFill, ChatHeartFill, QuestionCircle } from 'react-bootstrap-icons';
 import { getQotd, fetchPastNotes } from './api.js';
 import { UserContext } from './usercontext';
 import './css/home.css';
@@ -14,6 +15,7 @@ const Home = (props) => {
     const [qotd, setQotd] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [pastNotes, setPastNotes] = useState([]);
+    const [showHelpModal, setShowHelpModal] = useState(false);
 
     const startDate = new Date('2024-02-26');
     const today = new Date();
@@ -81,6 +83,12 @@ const Home = (props) => {
                     bottled notes
                     <ChatHeartFill className="logo-icon" />
                 </div>
+                <Button variant="link" className="help-button" onClick={() => setShowHelpModal(true)}>
+                    <QuestionCircle
+                        size={30}
+                        color="black"
+                    />
+                </Button>
                 <SplineIsland className="spline-center" />
                 {isLoading && (
                     <div style={{
@@ -100,6 +108,19 @@ const Home = (props) => {
                     TEMPORARY BUTTON
                 </Button> */}
             </div>
+            <Modal show={showHelpModal} onHide={() => setShowHelpModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Help</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Every day at 12AM PT, you'll get a new question of the day. Answer the question, and you can choose to have it get sent to a stranger on the internet. You'll receive the stranger's response to the question in return. Then, you can chat with the stranger if you wish. Random matching will happen within a few minutes to a few hours, so check back if you haven't received a stranger's note yet!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={() => setShowHelpModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

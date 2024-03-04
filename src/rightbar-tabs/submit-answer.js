@@ -34,6 +34,7 @@ const SubmitAnswer = (props) => {
             </Row>
             <Row className="mt-5">
                 <Col>
+                    <p>note that once you submit an answer, you won't be able to resubmit or edit it.</p>
                     <Button
                         variant="outline-dark"
                         onClick={props.handleFinishingTouches}

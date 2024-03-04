@@ -53,30 +53,33 @@ const RightPanel = (props) => {
             <div className="right-panel-container">
                 {
                     props.writingNote &&
-                    <Tabs defaultActiveKey="answerQuestion" variant="pills" activeKey={toExtras} onSelect={(k) => setToExtras(k)}>
-                        <Tab eventKey="answerQuestion" title="1. write a note">
-                            <div className="active-panel">
-                                <QuestionOfTheDay
-                                    setToExtras={setToExtras}
-                                    qotd={props.qotd}
-                                    onAnswerChange={setAnswer}
-                                    alreadyAnswered={myAnswer !== null}
-                                />
-                            </div>
-                        </Tab>
-                        <Tab eventKey="addExtras" title="2. prepare your bottle">
-                            <div className="active-panel">
-                                <SubmitAnswer
-                                    answer={answer}
-                                    setAnswer={setAnswer}
-                                    handleFinishingTouches={handleFinishingTouches}
-                                    isPrivate={isPrivate}
-                                    handleTogglePrivate={handleTogglePrivate}
-                                    alreadyAnswered={myAnswer !== null}
-                                />
-                            </div>
-                        </Tab>
-                    </Tabs>
+                    <>
+                        <Tabs defaultActiveKey="answerQuestion" variant="pills" activeKey={toExtras} onSelect={(k) => setToExtras(k)}>
+                            <Tab eventKey="answerQuestion" title="1. write a note">
+                                <div className="active-panel">
+                                    <QuestionOfTheDay
+                                        setToExtras={setToExtras}
+                                        qotd={props.qotd}
+                                        onAnswerChange={setAnswer}
+                                        alreadyAnswered={myAnswer !== null}
+                                    />
+                                </div>
+                            </Tab>
+                            <Tab eventKey="addExtras" title="2. prepare your bottle">
+                                <div className="active-panel">
+                                    <SubmitAnswer
+                                        answer={answer}
+                                        setAnswer={setAnswer}
+                                        handleFinishingTouches={handleFinishingTouches}
+                                        isPrivate={isPrivate}
+                                        handleTogglePrivate={handleTogglePrivate}
+                                        alreadyAnswered={myAnswer !== null}
+                                    />
+                                </div>
+                            </Tab>
+                        </Tabs>
+                    </>
+
                 }
                 {
                     props.viewingNote &&
