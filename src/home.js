@@ -8,7 +8,7 @@ import { getQotd, fetchPastNotes } from './api.js';
 import { UserContext } from './usercontext';
 import './css/home.css';
 
-const Home = (props) => {
+const Home = () => {
     const { userId } = useContext(UserContext);
     const [writingNote, setWritingNote] = useState(true);
     const [viewingNote, setViewingNote] = useState(false);
@@ -17,20 +17,23 @@ const Home = (props) => {
     const [pastNotes, setPastNotes] = useState([]);
     const [showHelpModal, setShowHelpModal] = useState(false);
 
+    // Calculate which question of the day to fetch (QOTDs in the database have an ID  from 1-150)
     const startDate = new Date('2024-02-26');
     const today = new Date();
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    const diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
+    let diffDays = Math.round(Math.abs((startDate - today) / oneDay)) + 1;
+    diffDays = (diffDays % 150) + 1;
 
-
+    // Set a timeout to remove the loading screen after 2 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 2000);
 
-        return () => clearTimeout(timer); // This will clear the timer when the component unmounts
+        return () => clearTimeout(timer); 
     }, []);
 
+    // Fetch the question of the day
     useEffect(() => {
         const fetchQotd = async () => {
             if (qotd === "") {
@@ -40,9 +43,9 @@ const Home = (props) => {
         };
 
         fetchQotd();
-        console.log(userId);
     }, [qotd, userId, diffDays]);
 
+    // Fetch the past questions
     useEffect(() => {
         const fetchNotes = async () => {
             const notes = await fetchPastNotes(diffDays);
@@ -81,7 +84,7 @@ const Home = (props) => {
                 />}
                 <Button className="logo" variant="outline" onClick={() => setShowHelpModal(true)}>
                     bottled notes
-                    <ChatHeartFill className="logo-icon"/>
+                    <ChatHeartFill className="logo-icon" />
                 </Button>
                 <Button variant="link" className="help-button" onClick={() => setShowHelpModal(true)}>
                     <QuestionCircle
@@ -106,16 +109,9 @@ const Home = (props) => {
                         Loading...
                     </div>
                 )}
-
-
-                {/* temporary button to upload qotd */}
-                {/* <Button onClick={() => {
-                    console.log("clicked the upload button");
-                    uploadData();
-                }}>
-                    TEMPORARY BUTTON
-                </Button> */}
             </div>
+
+            {/* Help/instructions modal */}
             <Modal show={showHelpModal} onHide={() => setShowHelpModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Help</Modal.Title>

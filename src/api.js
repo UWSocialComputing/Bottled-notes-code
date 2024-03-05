@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 const signUpUser = async (email, password) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Signed up 
         const user = userCredential.user;
         return user;
     } catch (error) {
@@ -21,8 +20,6 @@ const signInUser = async (userCredentials) => {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        // Signed in
-        console.log('user signed in');
         return ({ userId: userCredential.user.uid, error: undefined });
     } catch (error) {
         const errorCode = error.code;
@@ -31,34 +28,6 @@ const signInUser = async (userCredentials) => {
         return ({ error: errorMessage });
     }
 }
-
-// temporary to upload questions to the database
-// const uploadData = async () => {
-//     const data = [
-//         {
-//             id: 180,
-//             question: "What's a lesson you learned from a stranger?",
-//             usedbefore: false
-//         },
-//         // format continues
-//     ];
-
-//     console.log('uploaddata called');
-
-//     const batch = writeBatch(db);
-
-//     data.forEach((item) => {
-//         const docRef = doc(collection(db, "qotd")); // automatically generate unique id
-//         batch.set(docRef, item);
-//     });
-
-//     try {
-//         await batch.commit();
-//         console.log('Data uploaded successfully.');
-//     } catch (error) {
-//         console.error('Error uploading data:', error);
-//     }
-// };
 
 const getQotd = async (questionId) => {
     const qotdCollection = collection(db, "qotd");
@@ -110,7 +79,6 @@ const getMatchId = async (userId) => {
 
 const getMessages = async (matchId) => {
     if (!matchId) {
-        console.log("matchId is null or undefined 1!");
         return [];
     }
 
