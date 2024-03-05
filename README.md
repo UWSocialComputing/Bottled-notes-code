@@ -1,11 +1,14 @@
 # Bottled Notes
-This project is based on how people create new relationships online. I wanted to design a platform where connections between individuals feel more authentic. A lot of people find it difficult to trust strangers online; this platform is based on anonymity rather than having to convince someone online that you're who you're saying you are. You won't ever know who you're talking to-- you'll only be able to chat with them and see their responses to daily questions.
+The most "authentic" connections might come from when you're anonymous. A lot of social media has a focus on who a person is, and not what they say. Bottled notes is a platform where the focus is on what people say rather than who they are. 
+
+The target audience is for people seeking spontaneous, random connections online, but may be afraid of using traditional social media to meet new people because a lot of it is connected back to you as a person. On bottled notes, you don't ever have to disclose your identity to anyone.
 
 ## The project is deployed on firebase.
-This project is deployed on Firebase. [View it in your browser here.](https://bottled-notes.web.app/)
+[View it in your browser here.](https://bottled-notes.web.app/)
 
 ## For more information about bottled notes
-View the blog for this project [on the UW social computing site.](https://uwsocialcomputing.github.io/bottled-notes/)
+[View the blog for this project](https://uwsocialcomputing.github.io/bottled-notes/) on the UW social computing site.
 
 ## Other notes
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hosting and the database is created with [Firebase](https://firebase.google.com/).
