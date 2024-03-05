@@ -13,7 +13,7 @@ const SubmitAnswer = (props) => {
                         <p>You've already answered the question of the day.</p>
                     ) : (
                         <>
-                            <p>choose "private" if you want to keep your note private to strangers.</p>
+                            <p className="todays-note">choose "private" if you want to keep your note private to strangers.</p>
                             <ToggleButtonGroup
                                 type="radio"
                                 name="options"
@@ -32,14 +32,14 @@ const SubmitAnswer = (props) => {
                     )}
                 </Col>
             </Row>
-            <Row className="mt-5">
+            <Row>
                 <Col>
-                    <p>note that once you submit an answer, you won't be able to resubmit or edit it.</p>
                     <img
                         src="/bottle.png"
-                        alt="a bottle with a note in it" 
+                        alt="a bottle with a note in it"
                         className="bottle-image"
                     />
+                    <p className="todays-note"> note that once you submit an answer, you won't be able to resubmit or edit it.</p>
                     <Button
                         variant="outline-dark"
                         onClick={props.handleFinishingTouches}
