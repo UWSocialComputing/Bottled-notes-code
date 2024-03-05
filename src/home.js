@@ -89,11 +89,20 @@ const Home = (props) => {
                         color="black"
                     />
                 </Button>
-                <SplineIsland className="spline-center" />
+                <SplineIsland />
                 {isLoading && (
                     <div style={{
                         height: '100vh',
-                        fontSize: '80px'
+                        fontSize: '80px',
+                        zIndex: 9999,
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
                     }}>
                         Loading...
                     </div>
