@@ -79,10 +79,10 @@ const Home = (props) => {
                     userId={userId}
                     pastNotes={pastNotes}
                 />}
-                <div className="logo">
+                <Button className="logo" variant="outline" onClick={() => setShowHelpModal(true)}>
                     bottled notes
-                    <ChatHeartFill className="logo-icon" />
-                </div>
+                    <ChatHeartFill className="logo-icon"/>
+                </Button>
                 <Button variant="link" className="help-button" onClick={() => setShowHelpModal(true)}>
                     <QuestionCircle
                         size={30}
@@ -92,7 +92,6 @@ const Home = (props) => {
                 <SplineIsland />
                 {isLoading && (
                     <div style={{
-                        height: '100vh',
                         fontSize: '80px',
                         zIndex: 9999,
                         position: 'fixed',
