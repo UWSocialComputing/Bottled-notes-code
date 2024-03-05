@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Alert, Button } from "react-bootstrap";
+import { Row, Col, Alert, Button, Container } from "react-bootstrap";
 import { signInUser } from "./api";
 import SignInSpline from "./spline2.js";
 import { UserContext } from './usercontext';
@@ -34,40 +34,40 @@ const SignIn = (props) => {
     }
 
     return (
-        <Row style={{ display: 'flex', height: '100vh' }}>
-            <Col style={{ flex: 1 }}>
-                <div className="sign-in-form">
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Row>
-                        {isSigningUp ? (
-                            <SignUpCard
-                            // Pass necessary props to SignUpCard
-                            />
-                        ) : (
-                            <SignInCard
-                                handleFormSubmit={handleFormSubmit}
-                                userInfo={userInfo}
-                                setUserInfo={setUserInfo}
-                                error={error}
-                                navigate={navigate}
-                            />
-                        )}
-                        <Button variant="link" onClick={() => setIsSigningUp(!isSigningUp)}>
-                            {isSigningUp ? 'Already have an account? Sign in' : 'Don\'t have an account? Sign up'}
-                        </Button>
-                    </Row>
-                    <Row>
-                        <div className="logo-sign">
-                            bottled notes
-                            <ChatHeartFill className="logo-icon" />
-                        </div>
-                    </Row>
-                </div>
-            </Col>
-            <Col style={{ flex: 1 }}>
-                <SignInSpline />
-            </Col>
-        </Row >
+        <Container fluid>
+            <Row className="sign-in-row">
+                <Col>
+                    <div className="sign-in-form">
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        <Row>
+                            {isSigningUp ? (
+                                <SignUpCard />
+                            ) : (
+                                <SignInCard
+                                    handleFormSubmit={handleFormSubmit}
+                                    userInfo={userInfo}
+                                    setUserInfo={setUserInfo}
+                                    error={error}
+                                    navigate={navigate}
+                                />
+                            )}
+                            <Button variant="link" onClick={() => setIsSigningUp(!isSigningUp)}>
+                                {isSigningUp ? 'Already have an account? Sign in' : 'Don\'t have an account? Sign up'}
+                            </Button>
+                        </Row>
+                        <Row>
+                            <div className="logo-sign">
+                                bottled notes
+                                <ChatHeartFill className="logo-icon" />
+                            </div>
+                        </Row>
+                    </div>
+                </Col>
+                <Col>
+                    <SignInSpline />
+                </Col>
+            </Row >
+        </Container>
     );
 }
 

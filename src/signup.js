@@ -21,7 +21,7 @@ const SignUpCard = () => {
             const auth = getAuth();
             const email = `${username}@fakeemail.com`;
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const userId = userCredential.user.uid; 
+            const userId = userCredential.user.uid;
 
             // Create a new document in the "users" collection with the user's ID
             await setDoc(doc(db, "users", userId), {
@@ -48,7 +48,9 @@ const SignUpCard = () => {
                     Create an account.
                 </Card.Title>
                 <p>
-                    btw I can't guarantee the safety of this information.</p>
+                    btw I can't guarantee the safety of this information.
+                    also, please use alphanumeric characters only.
+                </p>
                 <Form onSubmit={handleSignUp}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form.Group controlId="formBasicEmail">
